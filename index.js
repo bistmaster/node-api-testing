@@ -4,6 +4,7 @@ var assert = require('assert');
 
 var API_URL = 'http://192.168.3.109:3000/api/data';
 var Sample_API_URL = 'http://192.168.3.109:3000/api/data/a888';
+var Sample_DELETE_API_URL = 'http://192.168.3.109:3000/api/data/RIOS';
 
 describe('Api Testing', function () {
 	/**
@@ -23,13 +24,25 @@ describe('Api Testing', function () {
 	});
 
 	describe('GET', function () {
-		it('Should GET the data from the API', function (done){
+		it('Should GET one data from the API', function (done){
 			request(Sample_API_URL, function (error, response, body){
 				body = JSON.parse(body);
 				should.not.exist(error);
 				response.statusCode.should.equal(200);
 				body.should.be.instanceOf(Array);
 				body.length.should.be.above(2);
+				done();
+			});
+		});
+	});
+
+	describe('DELETE', function () {
+		it('Should DELETE the data from the API', function (done){
+			request(Sample_DELETE_API_URL, function (error, response, body){
+				body = JSON.parse(body);
+				should.not.exist(error);
+				response.statusCode.should.equal(200);
+				body.message.should.containEql('Successfully deleted');
 				done();
 			});
 		});
