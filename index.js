@@ -23,12 +23,11 @@ describe('Api Testing', function () {
 
 	describe('GET', function () {
 		it('Should GET one data from the API', function (done){
-			request(API_URL + '/a888', function (error, response, body){
+			request(API_URL + '/11112', function (error, response, body){
 				body = JSON.parse(body);
 				should.not.exist(error);
 				response.statusCode.should.equal(200);
-				body.should.be.instanceOf(Array);
-				body.length.should.be.above(2);
+				body.should.be.instanceOf(Object);
 				done();
 			});
 		});
@@ -36,14 +35,18 @@ describe('Api Testing', function () {
 
 	describe('DELETE', function () {
 		it('Should DELETE the data from the API', function (done){
-			request(API_URL + '/RIOS', function (error, response, body){
+			var options = {
+				url: API_URL + '/11112',
+				method: 'DELETE'
+			}
+			request(options, function (error, response, body){
 				body = JSON.parse(body);
 				should.not.exist(error);
 				response.statusCode.should.equal(200);
 				body.message.should.containEql('Successfully deleted');
 				done();
 			});
-		});
+ 		});
 	});
 
 	/**
@@ -102,7 +105,7 @@ describe('Api Testing', function () {
 			};
 
 			var options = {
-				url: API_URL + '/a888',
+				url: API_URL + '/11112',
 				method: 'PUT',
 				form: data
 			}
